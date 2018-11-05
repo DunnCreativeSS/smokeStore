@@ -6,7 +6,6 @@ import CartItems from './CartItems'
 import {StripeProvider} from 'react-stripe-elements'
 import config from './../../config/config'
 import Checkout from './Checkout'
-
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -27,6 +26,7 @@ class Cart extends Component {
       document.querySelector('#stripe-js').addEventListener('load', () => {
         // Create Stripe instance once Stripe.js loads
         this.setState({stripe: window.Stripe(config.stripe_test_api_key)})
+    
       })
     }
   }
@@ -36,6 +36,7 @@ class Cart extends Component {
   }
 
   render() {
+
     const {classes} = this.props
     return (<div className={classes.root}>
       <Grid container spacing={24}>

@@ -9,7 +9,7 @@ import cart from './cart-helper.js'
 import {CardElement, injectStripe} from 'react-stripe-elements'
 import {create} from './../order/api-order.js'
 import {Redirect} from 'react-router-dom'
-
+import request from 'es6-request'
 const styles = theme => ({
   subheading: {
     color: 'rgba(88, 114, 128, 0.87)',
@@ -45,27 +45,35 @@ class PlaceOrder extends Component {
   }
 
   placeOrder = ()=>{
-    this.props.stripe.createToken().then(payload => {
-      if(payload.error){
-        this.setState({error: payload.error.message})
-      }else{
-        const jwt = auth.isAuthenticated()
-        create({userId:jwt.user._id}, {
-          t: jwt.token
-        }, this.props.checkoutDetails, payload.token.id).then((data) => {
-          if (data.error) {
-            this.setState({error: data.error})
-          } else {
-            cart.emptyCart(()=> {
-              this.setState({'orderId':data._id,'redirect': true})
-            })
-          }
-        })
-      }
-  })
+      request.get('https://api.coinmarketcap.com/v2/ticker/1898/')
+      .then(([data, res]) => {
+
+data = JSON.parse(data)
+console.log(data)
+    var price = (data.data.quotes.USD.price);
+    console.log(price)
+    var amt = 0;
+    for (var p in this.props.checkoutDetails.products){
+      console.log(this.props.checkoutDetails.products[p].quantity );
+      console.log(this.props.checkoutDetails.products[p].product.price)
+      amt = amt + this.props.checkoutDetails.products[p].quantity * this.props.checkoutDetails.products[p].product.price
+    }
+    console.log(amt)
+  var smoke=((amt / price).toString().substr(0, (amt / price).toString().indexOf('.')+3));
+  console.log(this.props.checkoutDetails.customer_email)
+  console.log(this.props.checkoutDetails.customer_name)
+  console.log(smoke + '0')
+steem_keychain.requestTransfer(this.props.checkoutDetails.customer_email,
+ this.props.checkoutDetails.customer_name,
+  smoke + '0', 'payment from store', 'SMOKE', function(response) {
+  console.log(response);
+      });
+});
 }
 
 render() {
+
+  console.log(this.props.checkoutDetails)
     const {classes} = this.props
     if (this.state.redirect) {
       return (<Redirect to={'/order/' + this.state.orderId}/>)
@@ -73,25 +81,9 @@ render() {
     return (
     <span>
       <Typography type="subheading" component="h3" className={classes.subheading}>
-        Card details
+        
       </Typography>
-      <CardElement
-        className={classes.StripeElement}
-          {...{style: {
-                        base: {
-                          color: '#424770',
-                          letterSpacing: '0.025em',
-                          fontFamily: 'Source Code Pro, Menlo, monospace',
-                          '::placeholder': {
-                            color: '#aab7c4',
-                          },
-                        },
-                        invalid: {
-                          color: '#9e2146',
-                        },
-                      }
-          }}
-      />
+
       <div className={classes.checkout}>
         { this.state.error &&
           (<Typography component="span" color="error" className={classes.error}>

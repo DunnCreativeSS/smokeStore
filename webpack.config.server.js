@@ -13,6 +13,9 @@ const config = {
         publicPath: '/dist/',
         libraryTarget: "commonjs2"
     },
+node: {
+  fs: 'empty'
+},
     externals: [nodeExternals()],
     module: {
         rules: [

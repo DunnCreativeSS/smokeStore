@@ -80,8 +80,8 @@ class Checkout extends Component {
         <Typography type="title" className={classes.title}>
           Checkout
         </Typography>
-        <TextField id="name" label="Name" className={classes.textField} value={this.state.checkoutDetails.customer_name} onChange={this.handleCustomerChange('customer_name')} margin="normal"/><br/>
-        <TextField id="email" type="email" label="Email" className={classes.textField} value={this.state.checkoutDetails.customer_email} onChange={this.handleCustomerChange('customer_email')} margin="normal"/><br/>
+        <TextField id="name" label="Vendor Smoke Account Name" className={classes.textField} value={this.state.checkoutDetails.customer_name} onChange={this.handleCustomerChange('customer_name')} margin="normal"/><br/>
+        <TextField id="email"  label="Your Smoke Account" className={classes.textField} value={this.state.checkoutDetails.customer_email} onChange={this.handleCustomerChange('customer_email')} margin="normal"/><br/>
         <Typography type="subheading" component="h3" className={classes.subheading}>
             Delivery Address
         </Typography>
