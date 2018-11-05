@@ -113,7 +113,7 @@ class NewProduct extends Component {
      if (data.error) {
         this.setState({error: data.error})
       } else {
-        var body = '![](http://burstytools.trade:3000/api/product/image/'+data._id+')';
+        var body = '![](http://tradeitforweed.io:3000/api/product/image/'+data._id+')';
     body += '<br>' + this.productData.get('description');
     body+='<br>for $'+ this.productData.get('price'); 
     body +='<br>permlink in product data: ' + data.permlink + '-post';
