@@ -1,3 +1,4 @@
+If you found this repo useful, consider clicking the sponsor button near the top :) Sponsoring via GitHub is as little as $1/month and if you do not use banks or credit cards, there are crypto links included :)<br /><br />
 # MERN Marketplace
 
 An online marketplace application with seller accounts, product search and suggestions, shopping cart, order management, and payment processing with Stripe - developed using React, Node, Express and MongoDB. 
